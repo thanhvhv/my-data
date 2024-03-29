@@ -1,0 +1,10 @@
+---
+- hosts: server
+  become: true
+  tasks:
+    - name: Add nodejs 16 repository
+      shell: "curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -"
+    - name: install nodejs
+      apt: 
+        name: nodejs 
+        update_cache: yes

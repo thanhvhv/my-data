@@ -1,0 +1,17 @@
+
+server {
+    listen 80;
+    listen [::]:80;
+ 
+    root path_file_index; 
+ 
+    # Add index.php to the list if you are using PHP
+    index file_index index.htm index.nginx-debian.html;
+ 
+    server_name domain;
+ 
+    location / {
+        proxy_pass http://ip;
+        include /etc/nginx/proxy_params;
+    }
+}

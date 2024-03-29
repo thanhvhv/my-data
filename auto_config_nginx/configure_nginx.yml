@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  become: true
+  tasks: 
+
+  - name: Delete symlink in sites-enable
+    ansible.builtin.file:
+      state: absent
+      path: /etc/nginx/sites-enabled/das
+
+  

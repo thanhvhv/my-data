@@ -1,0 +1,24 @@
+---
+
+- hosts: all
+  become: true
+  tasks: 
+  - name: Create backend-env directory
+    command: mkdir -p backend-env
+  - name: Copy .env to backend-env
+    command: docker run --rm -v /backend-env/:/usr/src/app/backend-env/ thanhvhv/backend-management cp /usr/src/app/.env /usr/src/app/backend-env/
+  - name: Copy .env.example to backend-env  
+    command: docker run --rm -v /backend-env/:/usr/src/app/backend-env/ thanhvhv/backend-management cp /usr/src/app/.env.example /usr/src/app/backend-env/  
+  - name: Copy .env.production to backend-env  
+    command: docker run --rm -v /backend-env/:/usr/src/app/backend-env/ thanhvhv/backend-management cp /usr/src/app/.env.production /usr/src/app/backend-env/ 
+  - name: Copy docker-compose.yml to backend-env  
+    command: docker run --rm -v /:/usr/src/app/backend-env/ thanhvhv/backend-management cp /usr/src/app/docker-compose.yml /usr/src/app/backend-env/ 
+  - name: Create client-env directory  
+    command: mkdir -p client-env
+  - name: Copy .env.sample to client-env  
+    command: docker run --rm -v /client-env/:/usr/src/app/client-env/ thanhvhv/client-management cp /usr/src/app/.env.sample /usr/src/app/client-env/
+  - name: Start Docker Compose  
+    command: docker-compose up
+
+      
+    

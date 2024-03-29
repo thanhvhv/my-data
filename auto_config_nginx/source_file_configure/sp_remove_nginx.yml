@@ -1,0 +1,24 @@
+---
+
+- hosts: all
+  become: true
+  tasks: 
+
+  - name: Delete sites-available
+    ansible.builtin.file:
+      state: absent
+      path: /etc/nginx/sites-available/domain_name
+  
+  - name: Delete symlink in sites-enable
+    ansible.builtin.file:
+      state: absent
+      path: /etc/nginx/sites-enabled/domain_name
+
+
+  - name: Delete domain name in server
+    lineinfile:
+      path: /etc/hosts
+      state: absent
+      regexp: '^(.*) domain_name$'  
+
+  

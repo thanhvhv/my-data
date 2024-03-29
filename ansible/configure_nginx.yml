@@ -1,0 +1,25 @@
+---
+
+- hosts: all
+  become: true
+  tasks: 
+
+  - name: Copy file
+    ansible.builtin.copy:
+      src: /home/thanh/project/ansible/file_configure  # name source file (local)
+      dest: /etc/nginx/sites-available/name_domain  # destination file (remote), edit domain 
+      owner: root
+      group: root
+      mode: '644' 
+  
+  - name: Symlink 
+    command: ln -sf /etc/nginx/sites-available/name_domain /etc/nginx/sites-enabled/name_domain # edit name file
+
+  - name: Add a line to a file if the file does not exist, without passing regexp
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      line: 127.0.0.1 name_domain
+      create: yes
+
+  - name: Restart Nginx
+    command: systemctl restart nginx

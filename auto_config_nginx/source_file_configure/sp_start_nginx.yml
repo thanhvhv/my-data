@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: true
+  tasks: 
+
+  - name: Create symlink in sites-enable
+    command: ln -sf /etc/nginx/sites-available/domain_name /etc/nginx/sites-enabled/domain_name
+
+  

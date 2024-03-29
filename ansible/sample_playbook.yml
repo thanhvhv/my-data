@@ -1,0 +1,28 @@
+---
+
+- hosts: all
+  become: true
+  tasks: 
+
+  - name: Copy file
+    ansible.builtin.copy:
+      src: src_path  # name source file (local)
+      dest: /home/thanhvhv/server-1.com  # destination file (remote), edit domain 
+      owner: thanhvhv
+      group: thanhvhv
+      mode: '644' 
+
+  - name: Replace line
+    lineinfile: 
+      path: /home/thanhvhv/server-1.com 
+      regexp: '^(.*)root(.*)$' 
+      line: 'root /var/www/html;'
+      backrefs: yes
+
+  - name: Replace string
+    replace:
+      path: /home/thanhvhv/server-1.com 
+      regexp: '/var/www/html;'
+      replace: '/var/www/html;'
+      
+  
